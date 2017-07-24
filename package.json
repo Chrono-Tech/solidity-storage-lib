@@ -1,0 +1,28 @@
+{
+  "name": "solidity-storage-lib",
+  "version": "0.1.0",
+  "description": "Provides an access to a storage contract",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/truffle test --network test"
+  },
+  "dependencies": {
+    "truffle": "3.4.3",
+    "truffle-hdwallet-provider": "mikefluff/truffle-hdwallet-provider",
+    "ethereumjs-testrpc": "3.0.5",
+    "solidity-shared-lib": "alesanro/solidity-shared-lib#feature\/MINT-246"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChronoBank/solidity-storage-lib.git"
+  },
+  "author": "Mike Fluff <mf@mikefluff.com> (http://mikefluff.com)",
+  "bugs": {
+    "url": "https://github.com/ChronoBank/solidity-storage-lib/issues"
+  },
+  "homepage": "https://github.com/ChronoBank/solidity-storage-lib#readme",
+  "license": "LGPL-3.0"
+}

@@ -1,0 +1,34 @@
+sudo: false
+dist: trusty
+language: node_js
+node_js: 7
+before_install:
+- export PATH=$PATH:$(pwd)/node_modules/.bin
+- git config --global user.email "mike@chronobank.com"
+- git config --global user.name "Travis-CI"
+script:
+- testrpc -g 1 --network-id 424242 > /dev/null &
+- truffle migrate --network test
+# - truffle test --network test
+
+# - if [ "$TRAVIS_BRANCH" == "release" ]; then
+#     git config credential.helper "store --file=.git/credentials";
+#     echo "https://${GH_TOKEN}:@github.com" > .git/credentials;
+#     npm run release;
+#     npm publish;
+#   fi
+# notifications:
+#   slack: chrono-dev:a6jsr4kW5U4uxrGNOxygOWGF
+
+# deploy:
+#   provider: npm
+#   email: mike.chronobank
+#   api_key:
+#     secure: fMwTum2BrHQUtI1nJiLxfkb7H5VyIb39heLQrmcnM9crttKQxsE8aCgI6/RHNOR0edDPfJnFd4ZDwRTfPUuRQnWoLgTHNv8dZGL0T3bXG1vi0pTaYTSyidJ9nx167gRZY1iq7jlLwLxDsqHQFIDL3QTJJ+13DrmgsiPRpa/BA5FDJAkW7uUD6EJSI/7TKqbVANAx0tpCAo5f52A/8ztC03IVGcGAYAX9drEm51JHI74uhhe6JsmIH6Q1G9ZyzkZaqibt2Oim4T63RXYtt1xP8qNcKmXo7V22I/NT2XDWB2jSJVGCWMmB5z4Q7Fftg/3PcO3fbpaTK4wc91nx05RXhzUFT1et789oVYNsTZd7DXrKsInWXVmzw+SOV9mKu1D7obdF02IdgspD1Sn39uBm32BsNDonsUlYNCyPGLerONSqm+rUE9RNblj1QxwqhNdCqk2ZXRdxriDDcUyjMFhQGJqMYLieHazWireQLckmz8Ndtqp9SV2oYU25Phett0/xNewDPFre/MZzjFUZwI5/BOwSqFZA1eoeUYqGxz0wj04Yz+wApYkWol5ifS9IGiki2PNAuNQSuP/7zHF+0bBywfG7yxB8AVjjscyMdBY98PHL/Y+sEpFlJz3LeSuuDgxdECuFnF8h/CR552H75QpKPYRQuTlJwTE+IBvEGlcOkrU=
+#   on:
+#     tags: true
+#     repo: ChronoBank/solidity-storage-lib
+#     branch: release
+# env:
+#   global:
+#     secure: Xd5gNWvEmiefw835mdgq8Z2YdBmBTQTJ5gMMgw5eZ3/7dNS8PlErKWGQbg21X+YMfBR/v/qyYcST9PDWLLc452LAHIYGQsKJTLTlWOpIISVgvL0525bW/koFaRoGRgG2lLiD9vvv4/zNoM+tI8EUQo5VyUvpv5if5GWDAzYL0LHfFH0O5AoW7JNTDPbFkDKU+m2/E8VfYQdcRlhInjPb41Shme9D5gm9ut4OcQ+yP+FhHK/3roqNEyvmmYg1r15SHEk7s6mNTzlisZXk7wAeCVWW4C+FBB4jwJ+6Hw5H+WnNtzyV+Gr2jJmdFBL4kEyk7ReTmL6iDmSlunAL4NxJjB0Lj1333xN5TRv1X8nWZQopEmY3/6z4hJW3DtyeFYcf/ZpveLW3YWH3fQe6F4q6A1TJjl5EKYbnlp5h46ZLHhk1qquxY9eGkT6IGPSF3K95qyAPbU2KfpWN7888ChzbL/u+4BzirRLdtZ4qIec4RGgreOnAdQH246jyLTDiWJ/0CufWdQrevlf6z7OKBZvYoAfSKQr5f7r1S5I5TkoQkmm+IwSzr+YskZ1qQs2RLwiBAT1YHkHgSFOdOoh9ABkyUbeR9vXJ0bDwZH3FnSkaGQSCGMk0iLnkwySwCFtrD7cC6tSih5M0Uv22hAvgwYQbTjVW3Rh4NlpRc7P/In1wXHc=
