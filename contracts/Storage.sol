@@ -4,6 +4,7 @@ import 'solidity-shared-lib/contracts/Object.sol';
 
 contract Manager {
     function isAllowed(address _actor, bytes32 _role) constant returns(bool);
+    function hasAccess(address _actor) constant returns(bool);
 }
 
 contract Storage is Object {
