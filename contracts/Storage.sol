@@ -1,12 +1,12 @@
 pragma solidity ^0.4.8;
 
-import 'solidity-shared-lib/contracts/Owned.sol';
+import 'solidity-shared-lib/contracts/Object.sol';
 
 contract Manager {
     function isAllowed(address _actor, bytes32 _role) constant returns(bool);
 }
 
-contract Storage is Owned {
+contract Storage is Object {
     struct Crate {
         mapping(bytes32 => uint) uints;
         mapping(bytes32 => address) addresses;

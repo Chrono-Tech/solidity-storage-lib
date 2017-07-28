@@ -9,7 +9,7 @@ before_install:
 script:
 - testrpc -g 1 --network-id 424242 > /dev/null &
 - truffle migrate --network test
-# - truffle test --network test
+- truffle test --network test
 
 # - if [ "$TRAVIS_BRANCH" == "release" ]; then
 #     git config credential.helper "store --file=.git/credentials";

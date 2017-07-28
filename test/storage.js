@@ -1,5 +1,5 @@
-const Storage = artifacts.require('./Storage.sol')
-const FakeAccessManager = artifacts.require('./stubs/FakeAccessManager.sol')
+const Storage = artifacts.require('Storage')
+const FakeAccessManager = artifacts.require('FakeAccessManager')
 
 function bytes32(stringOrNumber) {
   var zeros = '000000000000000000000000000000000000000000000000000000000000000';
