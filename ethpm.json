@@ -1,6 +1,6 @@
 {
   "package-name": "solidity-storage-lib",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides an access to a storage contract",
   "authors": [
     "Mike Fluff <mf@mikefluff.com> (http://mikefluff.com)"
