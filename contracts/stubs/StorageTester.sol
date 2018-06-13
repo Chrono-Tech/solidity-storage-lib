@@ -33,6 +33,7 @@ contract StorageTester is StorageAdapter {
     StorageInterface.AddressAddressUInt8Mapping addressAddressUInt8MappingVar;
     StorageInterface.AddressAddressUIntMapping addressAddressUIntMappingVar;
     StorageInterface.AddressUIntUIntMapping addressUIntUIntMappingVar;
+    StorageInterface.AddressUIntUInt8Mapping addressUIntUInt8MappingVar;
     StorageInterface.AddressBytes32Bytes32Mapping addressBytes32Bytes32MappingVar;
     StorageInterface.AddressBytes4BoolMapping addressBytes4BoolMappingVar;
     StorageInterface.AddressBytes4Bytes32Mapping addressBytes4Bytes32MappingVar;
@@ -238,6 +239,14 @@ contract StorageTester is StorageAdapter {
 
     function getAddressUIntUIntMapping(address _key, uint _key2) public view returns (uint) {
         return store.get(addressUIntUIntMappingVar, _key, _key2);
+    }
+
+    function setAddressUIntUInt8Mapping(address _key, uint _key2, uint8 _value) external {
+        store.set(addressUIntUInt8MappingVar, _key, _key2, _value);
+    }
+
+    function getAddressUIntUInt8Mapping(address _key, uint _key2) public view returns (uint) {
+        return store.get(addressUIntUInt8MappingVar, _key, _key2);
     }
 
     function setAddressBytes32Bytes32Mapping(address _key, bytes32 _key2, bytes32 _value) external {
