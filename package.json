@@ -3,26 +3,31 @@
   "version": "0.1.1",
   "description": "Provides an access to a storage contract",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "./node_modules/.bin/truffle test --network test"
+    "test:all": "./node_modules/truffle/build/cli.bundled.js test --network test",
+    "run:rpc": "./node_modules/ganache-cli/build/cli.node.js -g 1 --gasLimit 4700000 --trace_request true | grep -Ev \"FilterSubprovider|eth_getFilterChanges\"",
+    "compile": "./node_modules/truffle/build/cli.bundled.js compile",
+    "compile:all": "./node_modules/truffle/build/cli.bundled.js compile --all",
+    "migrate": "./node_modules/truffle/build/cli.bundled.js migrate",
+    "migrate:reset": "./node_modules/truffle/build/cli.bundled.js migrate --reset",
+    "console": "./node_modules/truffle/build/cli.bundled.js console --network test"
   },
   "dependencies": {
-    "truffle": "3.4.3",
-    "truffle-hdwallet-provider": "mikefluff/truffle-hdwallet-provider",
-    "ethereumjs-testrpc": "3.0.5",
-    "solidity-shared-lib": "chronobank/solidity-shared-lib"
+    "solidity-shared-lib": "alesanro/solidity-shared-lib#feature/update-to-latest"
+  },
+  "devDependencies": {
+    "ganache-cli": "6.1.0",
+    "truffle": "4.1.7",
+    "truffle-hdwallet-provider": "mikefluff/truffle-hdwallet-provider#7a2eccca1ba17c235a3ef258914ca74ea5f13014"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ChronoBank/solidity-storage-lib.git"
   },
-  "author": "Mike Fluff <mf@mikefluff.com> (http://mikefluff.com)",
+  "author": "LaborX PTY",
   "bugs": {
     "url": "https://github.com/ChronoBank/solidity-storage-lib/issues"
   },
   "homepage": "https://github.com/ChronoBank/solidity-storage-lib#readme",
-  "license": "LGPL-3.0"
+  "license": "AGPL-3.0"
 }
