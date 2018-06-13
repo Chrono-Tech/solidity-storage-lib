@@ -1,13 +1,21 @@
-pragma solidity ^0.4.8;
+/**
+ * Copyright 2017–2018, LaborX PTY
+ * Licensed under the AGPL Version 3 license.
+ */
 
-import './StorageInterface.sol';
+pragma solidity ^0.4.23;
+
+
+import "./StorageInterface.sol";
+
 
 contract StorageAdapter {
+
     using StorageInterface for *;
 
-    StorageInterface.Config store;
+    StorageInterface.Config internal store;
 
-    function StorageAdapter(Storage _store, bytes32 _crate) {
+    constructor(Storage _store, bytes32 _crate) public {
         store.init(_store, _crate);
     }
 }
