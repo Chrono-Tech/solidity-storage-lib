@@ -1,13 +1,20 @@
-pragma solidity ^0.4.8;
+/**
+ * Copyright 2017–2018, LaborX PTY
+ * Licensed under the AGPL Version 3 license.
+ */
 
-import 'solidity-shared-lib/contracts/Object.sol';
+pragma solidity ^0.4.23;
+
+
+import "solidity-shared-lib/contracts/Owned.sol";
+
 
 contract Manager {
-    function isAllowed(address _actor, bytes32 _role) constant returns(bool);
-    function hasAccess(address _actor) constant returns(bool);
+    function isAllowed(address _actor, bytes32 _role) public view returns (bool);
 }
 
-contract Storage is Object {
+
+contract Storage is Owned {
     struct Crate {
         mapping(bytes32 => uint) uints;
         mapping(bytes32 => address) addresses;
@@ -23,74 +30,74 @@ contract Storage is Object {
         uint8 _uint8;
     }
 
-    mapping(bytes32 => Crate) crates;
+    mapping(bytes32 => Crate) internal crates;
     Manager public manager;
 
     modifier onlyAllowed(bytes32 _role) {
         if (!manager.isAllowed(msg.sender, _role)) {
-            throw;
+            revert("Access to the storage is not allowed");
         }
         _;
     }
 
-    function setManager(Manager _manager) onlyContractOwner() returns(bool) {
+    function setManager(Manager _manager) onlyContractOwner external returns (bool) {
         manager = _manager;
         return true;
     }
 
-    function setUInt(bytes32 _crate, bytes32 _key, uint _value) onlyAllowed(_crate) {
+    function setUInt(bytes32 _crate, bytes32 _key, uint _value) onlyAllowed(_crate) public {
         crates[_crate].uints[_key] = _value;
     }
 
-    function getUInt(bytes32 _crate, bytes32 _key) constant returns(uint) {
+    function getUInt(bytes32 _crate, bytes32 _key) public view returns (uint) {
         return crates[_crate].uints[_key];
     }
 
-    function setAddress(bytes32 _crate, bytes32 _key, address _value) onlyAllowed(_crate) {
+    function setAddress(bytes32 _crate, bytes32 _key, address _value) onlyAllowed(_crate) public {
         crates[_crate].addresses[_key] = _value;
     }
 
-    function getAddress(bytes32 _crate, bytes32 _key) constant returns(address) {
+    function getAddress(bytes32 _crate, bytes32 _key) public view returns (address) {
         return crates[_crate].addresses[_key];
     }
 
-    function setBool(bytes32 _crate, bytes32 _key, bool _value) onlyAllowed(_crate) {
+    function setBool(bytes32 _crate, bytes32 _key, bool _value) onlyAllowed(_crate) public {
         crates[_crate].bools[_key] = _value;
     }
 
-    function getBool(bytes32 _crate, bytes32 _key) constant returns(bool) {
+    function getBool(bytes32 _crate, bytes32 _key) public view returns (bool) {
         return crates[_crate].bools[_key];
     }
 
-    function setInt(bytes32 _crate, bytes32 _key, int _value) onlyAllowed(_crate) {
+    function setInt(bytes32 _crate, bytes32 _key, int _value) onlyAllowed(_crate) public {
         crates[_crate].ints[_key] = _value;
     }
 
-    function getInt(bytes32 _crate, bytes32 _key) constant returns(int) {
+    function getInt(bytes32 _crate, bytes32 _key) public view returns (int) {
         return crates[_crate].ints[_key];
     }
 
-    function setUInt8(bytes32 _crate, bytes32 _key, uint8 _value) onlyAllowed(_crate) {
+    function setUInt8(bytes32 _crate, bytes32 _key, uint8 _value) onlyAllowed(_crate) public {
         crates[_crate].uint8s[_key] = _value;
     }
 
-    function getUInt8(bytes32 _crate, bytes32 _key) constant returns(uint8) {
+    function getUInt8(bytes32 _crate, bytes32 _key) public view returns (uint8) {
         return crates[_crate].uint8s[_key];
     }
 
-    function setBytes32(bytes32 _crate, bytes32 _key, bytes32 _value) onlyAllowed(_crate) {
+    function setBytes32(bytes32 _crate, bytes32 _key, bytes32 _value) onlyAllowed(_crate) public {
         crates[_crate].bytes32s[_key] = _value;
     }
 
-    function getBytes32(bytes32 _crate, bytes32 _key) constant returns(bytes32) {
+    function getBytes32(bytes32 _crate, bytes32 _key) public view returns (bytes32) {
         return crates[_crate].bytes32s[_key];
     }
 
-    function setAddressUInt8(bytes32 _crate, bytes32 _key, address _value, uint8 _value2) onlyAllowed(_crate) {
+    function setAddressUInt8(bytes32 _crate, bytes32 _key, address _value, uint8 _value2) onlyAllowed(_crate) public {
         crates[_crate].addressUInt8s[_key] = AddressUInt8(_value, _value2);
     }
 
-    function getAddressUInt8(bytes32 _crate, bytes32 _key) constant returns(address, uint8) {
+    function getAddressUInt8(bytes32 _crate, bytes32 _key) public view returns (address, uint8) {
         return (crates[_crate].addressUInt8s[_key]._address, crates[_crate].addressUInt8s[_key]._uint8);
     }
 }

@@ -2,9 +2,7 @@
   "package-name": "solidity-storage-lib",
   "version": "0.1.1",
   "description": "Provides an access to a storage contract",
-  "authors": [
-    "Mike Fluff <mf@mikefluff.com> (http://mikefluff.com)"
-  ],
+  "author": "LaborX PTY",
   "keywords": [
     "solidity",
     "ethereum",
@@ -13,5 +11,5 @@
   "dependencies": {
       "solidity-shared-lib": "^0.1.0"
   },
-  "license": "GPL-3.0"
+  "license": "AGPL-3.0"
 }
