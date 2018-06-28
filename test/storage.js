@@ -54,7 +54,7 @@ contract("Storage", function(accounts) {
         context("UINT", function() {
             it("should be able to write and then read the same value", function() {
                 return storage.setUInt(allowedCrate, key, valueUInt).then(() => {
-                    return storage.getUInt(allowedCrate, key).then((r) => {
+                    return storage.getUInt.call(allowedCrate, key).then((r) => {
                         assert.equal(r, valueUInt)
                     })
                 })
@@ -65,13 +65,10 @@ contract("Storage", function(accounts) {
             })
         })
 
-        context("UINT8", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setUInt8(allowedCrate, key, valueUInt).then(() => {
-                    return storage.getUInt8(allowedCrate, key).then((r) => {
-                        assert.equal(r, valueUInt)
-                    })
-                })
+        context("UINT8", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setUInt8(allowedCrate, key, valueUInt)
+                assert.isTrue((await storage.getUInt8.call(allowedCrate, key)).eq(valueUInt))
             })
 
             it("should not allow writing to non-allowed crate", function() {
@@ -81,13 +78,10 @@ contract("Storage", function(accounts) {
 
         const valueAddress = "0xffeeddccbbaa0000000000000000000000000000"
 
-        context("ADDRESS", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setAddress(allowedCrate, key, valueAddress).then(() => {
-                    return storage.getAddress(allowedCrate, key).then((r) => {
-                        assert.equal(r, valueAddress)
-                    })
-                })
+        context("ADDRESS", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setAddress(allowedCrate, key, valueAddress)
+                assert.equal(await storage.getAddress.call(allowedCrate, key), valueAddress)
             })
 
             it("should not allow writing to non-allowed crate", function() {
@@ -97,13 +91,10 @@ contract("Storage", function(accounts) {
 
         const valueBool = true
 
-        context("BOOL", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setBool(allowedCrate, key, valueBool).then(() => {
-                    return storage.getBool(allowedCrate, key).then((r) => {
-                        assert.equal(r, valueBool)
-                    })
-                })
+        context("BOOL", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setBool(allowedCrate, key, valueBool)
+                assert.equal(await storage.getBool.call(allowedCrate, key), valueBool)
             })
 
             it("should not allow writing to non-allowed crate", function() {
@@ -111,13 +102,10 @@ contract("Storage", function(accounts) {
             })
         })
 
-        context("INT", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setInt(allowedCrate, key, valueUInt).then(() => {
-                    return storage.getInt(allowedCrate, key).then((r) => {
-                        assert.equal(r, valueUInt)
-                    })
-                })
+        context("INT", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setInt(allowedCrate, key, valueUInt)
+                assert.isTrue((await storage.getInt.call(allowedCrate, key)).eq(valueUInt))
             })
 
             it("should not allow writing to non-allowed crate", function() {
@@ -127,13 +115,10 @@ contract("Storage", function(accounts) {
 
         const valueBytes32 = bytes32("value of bytes32")
 
-        context("BYTES32", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setBytes32(allowedCrate, key, valueBytes32).then(() => {
-                    return storage.getBytes32(allowedCrate, key).then((r) => {
-                        assert.equal(r, valueBytes32)
-                    })
-                })
+        context("BYTES32", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setBytes32(allowedCrate, key, valueBytes32)
+                assert.equal(await storage.getBytes32.call(allowedCrate, key), valueBytes32)
             })
 
             it("should not allow writing to non-allowed crate", function() {
@@ -141,15 +126,14 @@ contract("Storage", function(accounts) {
             })
         })
 
-        context("ADDRESS_UINT8", function() {
-            it("should be able to write and then read the same value", function() {
-                return storage.setAddressUInt8(allowedCrate, key, valueAddress, valueUInt).then(() => {
-                    return storage.getAddressUInt8(allowedCrate, key).then((r) => {
-                        assert.equal(r.length, 2)
-                        assert.equal(r[0], valueAddress)
-                        assert.equal(r[1], valueUInt)
-                    })
-                })
+        context("ADDRESS_UINT8", async () => {
+            it("should be able to write and then read the same value", async () => {
+                await storage.setAddressUInt8(allowedCrate, key, valueAddress, valueUInt)
+                let r = await storage.getAddressUInt8.call(allowedCrate, key)
+
+                assert.equal(r.length, 2)
+                assert.equal(r[0], valueAddress)
+                assert.equal(r[1], valueUInt)
             })
 
             it("should not allow writing to non-allowed crate", function() {

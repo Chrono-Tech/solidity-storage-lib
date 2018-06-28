@@ -6,3 +6,5 @@ node_modules/
 
 *.log
 *.bac
+coverage.json
+coverage
