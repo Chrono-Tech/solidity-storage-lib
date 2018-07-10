@@ -505,7 +505,7 @@ library StorageInterface {
         self.store.setUInt8(self.crate, item.id, _value);
     }
 
-    function set(Config storage self, UInt8 storage item, uint _salt, uint8 _value) internal {
+    function set(Config storage self, UInt8 storage item, bytes32 _salt, uint8 _value) internal {
         self.store.setUInt8(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
@@ -1319,8 +1319,8 @@ library StorageInterface {
         return uint(getNextValue(self, item.innerSet, bytes32(_value)));
     }
 
-    function getNextValue(Config storage self, OrderedAddressesSet storage item, bytes32 _value) internal view returns (address) {
-        return address(getNextValue(self, item.innerSet, _value));
+    function getNextValue(Config storage self, OrderedAddressesSet storage item, address _value) internal view returns (address) {
+        return address(getNextValue(self, item.innerSet, bytes32(_value)));
     }
 
     function getPreviousValue(Config storage self, OrderedSet storage item, bytes32 _value) internal view returns (bytes32) {
@@ -1335,8 +1335,8 @@ library StorageInterface {
         return uint(getPreviousValue(self, item.innerSet, bytes32(_value)));
     }
 
-    function getPreviousValue(Config storage self, OrderedAddressesSet storage item, bytes32 _value) internal view returns (address) {
-        return address(getPreviousValue(self, item.innerSet, _value));
+    function getPreviousValue(Config storage self, OrderedAddressesSet storage item, address _value) internal view returns (address) {
+        return address(getPreviousValue(self, item.innerSet, bytes32(_value)));
     }
 
     function toBool(bytes32 self) internal pure returns (bool) {

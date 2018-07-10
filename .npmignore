@@ -3,10 +3,17 @@ migrations/
 test/
 ethpm.json
 
+*.tgz
+
 contracts/stubs
 contracts/Migrations.sol
 
+coverage/
+coverage*
+.solcover*
+
+
 .gitattributes
-.es*
+.eslint*
 .solium*
 truffle*
