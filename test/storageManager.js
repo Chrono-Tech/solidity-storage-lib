@@ -1,6 +1,6 @@
 "use strict"
 
-const StorageManagerStub = artifacts.require('StorageManagerStub')
+const StorageManager = artifacts.require('StorageManager')
 
 const Reverter = require('./helpers/reverter')
 
@@ -14,19 +14,19 @@ contract('StorageManager', accounts => {
 		user1: accounts[1],
 	}
 
-	before('setup', () => {
-		return StorageManagerStub.deployed()
-			.then(instance => storageManager = instance)
-			.then(() => multiEventsHistory = storageManager)
-			.then(reverter.snapshot)
+	before('setup', async () => {
+		storageManager = await StorageManager.deployed()
+		multiEventsHistory = storageManager
+		await storageManager.setupEventsHistory(multiEventsHistory.address)
+
+		await reverter.snapshot()
 	})
 
 	context("initial", () => {
 		afterEach('revert', reverter.revert)
 
-		it('should have valid events history', () => {
-			return storageManager.getEventsHistory.call()
-				.then(_eventsHistory => assert.equal(_eventsHistory, multiEventsHistory.address))
+		it('should have valid events history', async () => {
+			assert.equal(await storageManager.getEventsHistory.call(), multiEventsHistory.address)
 		})
 
 		it('should NOT allow to setup events history by non-owner') // TODO

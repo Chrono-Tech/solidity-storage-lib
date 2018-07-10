@@ -15,7 +15,8 @@
     "testrpc": "npx ganache-cli -g 1 --gasLimit 8000000 --trace_request true | grep -Ev \"FilterSubprovider|eth_getFilterChanges\""
   },
   "dependencies": {
-    "solidity-shared-lib": "chronobank/solidity-shared-lib#v0.2.1"
+    "solidity-shared-lib": "chronobank/solidity-shared-lib#v0.2.1",
+    "solidity-eventshistory-lib": "chronobank/solidity-eventshistory-lib#develop"
   },
   "devDependencies": {
     "ganache-cli": "^6.1.4",

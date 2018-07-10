@@ -1,13 +1,13 @@
 const Storage = artifacts.require('Storage')
 const FakeAccessManager = artifacts.require('FakeAccessManager')
-const StorageManagerStub = artifacts.require('StorageManagerStub')
+const StorageManager = artifacts.require('StorageManager')
 
 module.exports = function(deployer, network) {
 	if (network === 'development' || network === 'test') {
 		deployer.then(async () => {
 			await deployer.deploy(FakeAccessManager)
 			await deployer.deploy(Storage)
-			await deployer.deploy(StorageManagerStub)
+			await deployer.deploy(StorageManager)
 
 			const storage = await Storage.deployed()
 			await storage.setManager(FakeAccessManager.address)
