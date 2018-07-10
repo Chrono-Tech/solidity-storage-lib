@@ -1,0 +1,7 @@
+build/*
+contracts/*
+node_modules/*
+coverage/*
+.*
+*.json
+truffle*

@@ -438,9 +438,9 @@ library StorageInterface {
     }
 
     function init(Set storage self, bytes32 _id) internal {
-        init(self.count, keccak256(_id, "count"));
-        init(self.indexes, keccak256(_id, "indexes"));
-        init(self.values, keccak256(_id, "values"));
+        init(self.count, keccak256(abi.encodePacked(_id, "count")));
+        init(self.indexes, keccak256(abi.encodePacked(_id, "indexes")));
+        init(self.values, keccak256(abi.encodePacked(_id, "values")));
     }
 
     function init(AddressesSet storage self, bytes32 _id) internal {
@@ -452,11 +452,11 @@ library StorageInterface {
     }
 
     function init(OrderedSet storage self, bytes32 _id) internal {
-        init(self.count, keccak256(_id, "uint/count"));
-        init(self.first, keccak256(_id, "uint/first"));
-        init(self.last, keccak256(_id, "uint/last"));
-        init(self.nextValues, keccak256(_id, "uint/next"));
-        init(self.previousValues, keccak256(_id, "uint/prev"));
+        init(self.count, keccak256(abi.encodePacked(_id, "uint/count")));
+        init(self.first, keccak256(abi.encodePacked(_id, "uint/first")));
+        init(self.last, keccak256(abi.encodePacked(_id, "uint/last")));
+        init(self.nextValues, keccak256(abi.encodePacked(_id, "uint/next")));
+        init(self.previousValues, keccak256(abi.encodePacked(_id, "uint/prev")));
     }
 
     function init(OrderedUIntSet storage self, bytes32 _id) internal {
@@ -498,7 +498,7 @@ library StorageInterface {
     }
 
     function set(Config storage self, UInt storage item, bytes32 _salt, uint _value) internal {
-        self.store.setUInt(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setUInt(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, UInt8 storage item, uint8 _value) internal {
@@ -506,7 +506,7 @@ library StorageInterface {
     }
 
     function set(Config storage self, UInt8 storage item, uint _salt, uint8 _value) internal {
-        self.store.setUInt8(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setUInt8(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, Int storage item, int _value) internal {
@@ -514,7 +514,7 @@ library StorageInterface {
     }
 
     function set(Config storage self, Int storage item, bytes32 _salt, int _value) internal {
-        self.store.setInt(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setInt(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, Address storage item, address _value) internal {
@@ -522,7 +522,7 @@ library StorageInterface {
     }
 
     function set(Config storage self, Address storage item, bytes32 _salt, address _value) internal {
-        self.store.setAddress(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setAddress(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, Bool storage item, bool _value) internal {
@@ -530,7 +530,7 @@ library StorageInterface {
     }
 
     function set(Config storage self, Bool storage item, bytes32 _salt, bool _value) internal {
-        self.store.setBool(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setBool(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, Bytes32 storage item, bytes32 _value) internal {
@@ -538,31 +538,31 @@ library StorageInterface {
     }
 
     function set(Config storage self, Bytes32 storage item, bytes32 _salt, bytes32 _value) internal {
-        self.store.setBytes32(self.crate, keccak256(item.id, _salt), _value);
+        self.store.setBytes32(self.crate, keccak256(abi.encodePacked(item.id, _salt)), _value);
     }
 
     function set(Config storage self, Mapping storage item, uint _key, uint _value) internal {
-        self.store.setUInt(self.crate, keccak256(item.id, _key), _value);
+        self.store.setUInt(self.crate, keccak256(abi.encodePacked(item.id, _key)), _value);
     }
 
     function set(Config storage self, Mapping storage item, bytes32 _key, bytes32 _value) internal {
-        self.store.setBytes32(self.crate, keccak256(item.id, _key), _value);
+        self.store.setBytes32(self.crate, keccak256(abi.encodePacked(item.id, _key)), _value);
     }
 
     function set(Config storage self, AddressUInt8Mapping storage item, bytes32 _key, address _value1, uint8 _value2) internal {
-        self.store.setAddressUInt8(self.crate, keccak256(item.id, _key), _value1, _value2);
+        self.store.setAddressUInt8(self.crate, keccak256(abi.encodePacked(item.id, _key)), _value1, _value2);
     }
 
     function set(Config storage self, Mapping storage item, bytes32 _key, bytes32 _key2, bytes32 _value) internal {
-        set(self, item, keccak256(_key, _key2), _value);
+        set(self, item, keccak256(abi.encodePacked(_key, _key2)), _value);
     }
 
     function set(Config storage self, Mapping storage item, bytes32 _key, bytes32 _key2, bytes32 _key3, bytes32 _value) internal {
-        set(self, item, keccak256(_key, _key2, _key3), _value);
+        set(self, item, keccak256(abi.encodePacked(_key, _key2, _key3)), _value);
     }
 
     function set(Config storage self, Bool storage item, bytes32 _key, bytes32 _key2, bytes32 _key3, bool _value) internal {
-        set(self, item, keccak256(_key, _key2, _key3), _value);
+        set(self, item, keccak256(abi.encodePacked(_key, _key2, _key3)), _value);
     }
 
     function set(Config storage self, UIntAddressMapping storage item, uint _key, address _value) internal {
@@ -670,31 +670,31 @@ library StorageInterface {
     }
 
     function set(Config storage self, AddressUIntStructAddressUInt8Mapping storage item, address _key, uint _key2, address _value, uint8 _value2) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2), _value, _value2);
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2)), _value, _value2);
     }
 
     function set(Config storage self, AddressUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, address _value, uint8 _value2) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3), _value, _value2);
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3)), _value, _value2);
     }
 
     function set(Config storage self, AddressUIntUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2,  uint _key3, uint _key4, address _value, uint8 _value2) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4), _value, _value2);
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4)), _value, _value2);
     }
 
     function set(Config storage self, AddressUIntUIntUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2,  uint _key3, uint _key4, uint _key5, address _value, uint8 _value2) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4, _key5), _value, _value2);
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4, _key5)), _value, _value2);
     }
 
     function set(Config storage self, AddressUIntAddressUInt8Mapping storage item, address _key, uint _key2, address _key3, uint8 _value) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3), bytes32(_value));
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3)), bytes32(_value));
     }
 
     function set(Config storage self, AddressUIntUIntAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, address _key4, uint8 _value) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4), bytes32(_value));
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4)), bytes32(_value));
     }
 
     function set(Config storage self, AddressUIntUIntUIntAddressUInt8Mapping storage item, address _key, uint _key2,  uint _key3, uint _key4, address _key5, uint8 _value) internal {
-        set(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4, _key5), bytes32(_value));
+        set(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4, _key5)), bytes32(_value));
     }
 
     function set(Config storage self, AddressBytes4BoolMapping storage item, address _key, bytes4 _key2, bool _value) internal {
@@ -727,7 +727,7 @@ library StorageInterface {
     }
 
     function add(Config storage self, CounterSet storage item) internal {
-        add(self, item.innerSet, bytes32(count(self,item)));
+        add(self, item.innerSet, bytes32(count(self, item) + 1));
     }
 
     function add(Config storage self, OrderedSet storage item, bytes32 _value) internal {
@@ -896,7 +896,7 @@ library StorageInterface {
     }
 
     function get(Config storage self, UInt storage item, bytes32 salt) internal view returns (uint) {
-        return self.store.getUInt(self.crate, keccak256(item.id, salt));
+        return self.store.getUInt(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, UInt8 storage item) internal view returns (uint8) {
@@ -904,7 +904,7 @@ library StorageInterface {
     }
 
     function get(Config storage self, UInt8 storage item, bytes32 salt) internal view returns (uint8) {
-        return self.store.getUInt8(self.crate, keccak256(item.id, salt));
+        return self.store.getUInt8(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, Int storage item) internal view returns (int) {
@@ -912,7 +912,7 @@ library StorageInterface {
     }
 
     function get(Config storage self, Int storage item, bytes32 salt) internal view returns (int) {
-        return self.store.getInt(self.crate, keccak256(item.id, salt));
+        return self.store.getInt(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, Address storage item) internal view returns (address) {
@@ -920,7 +920,7 @@ library StorageInterface {
     }
 
     function get(Config storage self, Address storage item, bytes32 salt) internal view returns (address) {
-        return self.store.getAddress(self.crate, keccak256(item.id, salt));
+        return self.store.getAddress(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, Bool storage item) internal view returns (bool) {
@@ -928,7 +928,7 @@ library StorageInterface {
     }
 
     function get(Config storage self, Bool storage item, bytes32 salt) internal view returns (bool) {
-        return self.store.getBool(self.crate, keccak256(item.id, salt));
+        return self.store.getBool(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, Bytes32 storage item) internal view returns (bytes32) {
@@ -936,31 +936,31 @@ library StorageInterface {
     }
 
     function get(Config storage self, Bytes32 storage item, bytes32 salt) internal view returns (bytes32) {
-        return self.store.getBytes32(self.crate, keccak256(item.id, salt));
+        return self.store.getBytes32(self.crate, keccak256(abi.encodePacked(item.id, salt)));
     }
 
     function get(Config storage self, Mapping storage item, uint _key) internal view returns (uint) {
-        return self.store.getUInt(self.crate, keccak256(item.id, _key));
+        return self.store.getUInt(self.crate, keccak256(abi.encodePacked(item.id, _key)));
     }
 
     function get(Config storage self, Mapping storage item, bytes32 _key) internal view returns (bytes32) {
-        return self.store.getBytes32(self.crate, keccak256(item.id, _key));
+        return self.store.getBytes32(self.crate, keccak256(abi.encodePacked(item.id, _key)));
     }
 
     function get(Config storage self, AddressUInt8Mapping storage item, bytes32 _key) internal view returns (address, uint8) {
-        return self.store.getAddressUInt8(self.crate, keccak256(item.id, _key));
+        return self.store.getAddressUInt8(self.crate, keccak256(abi.encodePacked(item.id, _key)));
     }
 
     function get(Config storage self, Mapping storage item, bytes32 _key, bytes32 _key2) internal view returns (bytes32) {
-        return get(self, item, keccak256(_key, _key2));
+        return get(self, item, keccak256(abi.encodePacked(_key, _key2)));
     }
 
     function get(Config storage self, Mapping storage item, bytes32 _key, bytes32 _key2, bytes32 _key3) internal view returns (bytes32) {
-        return get(self, item, keccak256(_key, _key2, _key3));
+        return get(self, item, keccak256(abi.encodePacked(_key, _key2, _key3)));
     }
 
     function get(Config storage self, Bool storage item, bytes32 _key, bytes32 _key2, bytes32 _key3) internal view returns (bool) {
-        return get(self, item, keccak256(_key, _key2, _key3));
+        return get(self, item, keccak256(abi.encodePacked(_key, _key2, _key3)));
     }
 
     function get(Config storage self, UIntBoolMapping storage item, uint _key) internal view returns (bool) {
@@ -1076,31 +1076,31 @@ library StorageInterface {
     }
 
     function get(Config storage self, AddressUIntStructAddressUInt8Mapping storage item, address _key, uint _key2) internal view returns (address, uint8) {
-        return get(self, item.innerMapping, keccak256(_key, _key2));
+        return get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2)));
     }
 
     function get(Config storage self, AddressUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3) internal view returns (address, uint8) {
-        return get(self, item.innerMapping, keccak256(_key, _key2, _key3));
+        return get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3)));
     }
 
     function get(Config storage self, AddressUIntUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, uint _key4) internal view returns (address, uint8) {
-        return get(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4));
+        return get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4)));
     }
 
     function get(Config storage self, AddressUIntUIntUIntUIntStructAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, uint _key4, uint _key5) internal view returns (address, uint8) {
-        return get(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4, _key5));
+        return get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4, _key5)));
     }
 
     function get(Config storage self, AddressUIntAddressUInt8Mapping storage item, address _key, uint _key2, address _key3) internal view returns (uint8) {
-        return uint8(get(self, item.innerMapping, keccak256(_key, _key2, _key3)));
+        return uint8(get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3))));
     }
 
     function get(Config storage self, AddressUIntUIntAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, address _key4) internal view returns (uint8) {
-        return uint8(get(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4)));
+        return uint8(get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4))));
     }
 
     function get(Config storage self, AddressUIntUIntUIntAddressUInt8Mapping storage item, address _key, uint _key2, uint _key3, uint _key4, address _key5) internal view returns (uint8) {
-        return uint8(get(self, item.innerMapping, keccak256(_key, _key2, _key3, _key4, _key5)));
+        return uint8(get(self, item.innerMapping, keccak256(abi.encodePacked(_key, _key2, _key3, _key4, _key5))));
     }
 
     /** `includes` operation */

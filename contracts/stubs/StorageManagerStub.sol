@@ -6,9 +6,9 @@ import "../BaseStorageManager.sol";
 
 contract StorageManagerStub is BaseStorageManager {
 
-	address eventsHistory;
+    address eventsHistory;
 
-	function setupEventsHistory(address _eventsHistory) onlyContractOwner public returns (bool) {
+    function setupEventsHistory(address _eventsHistory) onlyContractOwner public returns (bool) {
         if (getEventsHistory() != 0x0) {
             return false;
         }
@@ -16,15 +16,15 @@ contract StorageManagerStub is BaseStorageManager {
         return true;
     }
 
-	function getEventsHistory() public view returns (address) {
-		return eventsHistory != 0x0 ? eventsHistory : this;
-	}
+    function getEventsHistory() public view returns (address) {
+        return eventsHistory != 0x0 ? eventsHistory : this;
+    }
 
-	function _self() internal view returns (address) {
-		return msg.sender;
-	}
+    function _self() internal view returns (address) {
+        return msg.sender;
+    }
 
-	function _setEventsHistory(address _eventsHistory) internal returns (bool) {
+    function _setEventsHistory(address _eventsHistory) internal returns (bool) {
         eventsHistory = _eventsHistory;
         return true;
     }
