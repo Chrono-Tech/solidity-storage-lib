@@ -9,14 +9,8 @@ pragma solidity ^0.4.23;
 import "../StorageAdapter.sol";
 
 
-contract StorageTester is StorageAdapter {
+contract StorageMappingTester is StorageAdapter {
 
-    StorageInterface.UInt uintVar;
-    StorageInterface.UInt8 uint8Var;
-    StorageInterface.Int intVar;
-    StorageInterface.Address addressVar;
-    StorageInterface.Bool boolVar;
-    StorageInterface.Bytes32 bytes32Var;
     StorageInterface.Mapping mappingVar;
     StorageInterface.UIntBoolMapping uIntBoolMappingVar;
     StorageInterface.UIntUIntMapping uIntUIntMappingVar;
@@ -53,64 +47,57 @@ contract StorageTester is StorageAdapter {
     StorageInterface.AddressUIntUIntUIntAddressUInt8Mapping addressUIntUIntUIntAddressUInt8MappingVar;
     StorageInterface.UIntAddressAddressBoolMapping uIntAddressAddressBoolMappingVar;
     StorageInterface.UIntUIntUIntBytes32Mapping uIntUIntUIntBytes32MappingVar;
-    
-    StorageInterface.Set setVar;
-    StorageInterface.AddressesSet addressesSetVar;
 
     constructor(Storage _store, bytes32 _crate) StorageAdapter(_store, _crate) public {
-        reinit();
     }
 
-    function reinit() public {
-        uintVar.init("uintVar");
-        intVar.init("intVar");
-        addressVar.init("addressVar");
-        boolVar.init("boolVar");
-        bytes32Var.init("bytes32Var");
-        mappingVar.init("mappingVar");
+    function reinitMapping() public {
+        uIntBoolMappingVar.init("uIntBoolMappingVar");
+        uIntUIntMappingVar.init("uIntUIntMappingVar");
+        uIntBytes32MappingVar.init("uIntBytes32MappingVar");
+        uIntAddressMappingVar.init("uIntAddressMappingVar");
+        uIntEnumMappingVar.init("uIntEnumMappingVar");
+        addressBoolMappingVar.init("addressBoolMappingVar");
         addressUIntMappingVar.init("addressUIntMappingVar");
-        setVar.init("setVar");
-        addressesSetVar.init("addressesSetVar");
+        addressBytes32MappingVar.init("addressBytes32MappingVar");
+        addressAddressMappingVar.init("addressAddressMappingVar");
+        bytes32UIntMappingVar.init("bytes32UIntMappingVar");
+        bytes32Bytes32MappingVar.init("bytes32Bytes32MappingVar");
+        bytes32AddressMappingVar.init("bytes32AddressMappingVar");
+        addressAddressUInt8MappingVar.init("aaui8mv");
+        addressAddressUIntMappingVar.init("aaumv");
+        addressUIntUIntMappingVar.init("auum");
+        addressUIntUInt8MappingVar.init("auu8m");
+        addressBytes32Bytes32MappingVar.init("abbm");
+        addressBytes4BoolMappingVar.init("ab4vm");
+        addressBytes4Bytes32MappingVar.init("ab4bm");
+        uIntAddressUIntMappingVar.init("uaum");
+        uIntAddressAddressMappingVar.init("uaam");
+        uIntAddressBoolMappingVar.init("uabm");
+        uIntUIntAddressMappingVar.init("uuam");
+        uIntUIntBytes32MappingVar.init("uubm");
+        uIntUIntUIntMappingVar.init("uuum");
+        addressUIntUIntUIntMappingVar.init("auuum");
     }
 
-    function setUInt(uint _value) external {
-        store.set(uintVar, _value);
+    function reinitMappingComplex() public {
+        addressUIntStructAddressUInt8MappingVar.init("ausau8m");
+        addressUIntUIntStructAddressUInt8MappingVar.init("auusau8m");
+        addressUIntUIntUIntStructAddressUInt8MappingVar.init("auuusau8m");
+        addressUIntUIntUIntUIntStructAddressUInt8MappingVar.init("auuuusau8m");
+        addressUIntAddressUInt8MappingVar.init("auau8m");
+        addressUIntUIntAddressUInt8MappingVar.init("auuaumm");
+        addressUIntUIntUIntAddressUInt8MappingVar.init("auuuau8m");
+        uIntAddressAddressBoolMappingVar.init("uaabm");
+        uIntUIntUIntBytes32MappingVar.init("uuubm");
     }
 
-    function getUInt() public view returns (uint) {
-        return store.get(uintVar);
+    function setMappingWithUIntKey(uint _key, uint _value) external {
+        store.set(mappingVar, _key, _value);
     }
 
-    function setInt(int _value) external {
-        store.set(intVar, _value);
-    }
-
-    function getInt() public view returns (int) {
-        return store.get(intVar);
-    }
-
-    function setAddress(address _value) external {
-        store.set(addressVar, _value);
-    }
-
-    function getAddress() public view returns (address) {
-        return store.get(addressVar);
-    }
-
-    function setBool(bool _value) external {
-        store.set(boolVar, _value);
-    }
-
-    function getBool() public view returns (bool) {
-        return store.get(boolVar);
-    }
-
-    function setBytes32(bytes32 _value) external {
-        store.set(bytes32Var, _value);
-    }
-
-    function getBytes32() public view returns (bytes32) {
-        return store.get(bytes32Var);
+    function getMappingWithUIntKey(uint _key) external view returns (uint) {
+        return store.get(mappingVar, _key);
     }
 
     function setMapping(bytes32 _key, bytes32 _value) external {
@@ -399,45 +386,5 @@ contract StorageTester is StorageAdapter {
 
     function getUIntUIntUIntBytes32Mapping(uint _key, uint _key2, uint _key3) public view returns (bytes32) {
         return store.get(uIntUIntUIntBytes32MappingVar, _key, _key2, _key3);
-    }
-
-    function addSet(bytes32 _value) external {
-        store.add(setVar, _value);
-    }
-
-    function removeSet(bytes32 _value) external {
-        store.remove(setVar, _value);
-    }
-
-    function includesSet(bytes32 _value) external view returns (bool) {
-        return store.includes(setVar, _value);
-    }
-
-    function countSet() public view returns (uint) {
-        return store.count(setVar);
-    }
-
-    function getSet() public view returns (bytes32[]) {
-        return store.get(setVar);
-    }
-
-    function addAddressesSet(address _value) external {
-        store.add(addressesSetVar, _value);
-    }
-
-    function removeAddressesSet(address _value) external {
-        store.remove(addressesSetVar, _value);
-    }
-
-    function includesAddressesSet(address _value) external view returns (bool) {
-        return store.includes(addressesSetVar, _value);
-    }
-
-    function countAddressesSet() public view returns (uint) {
-        return store.count(addressesSetVar);
-    }
-
-    function getAddressesSet() public view returns (address[]) {
-        return store.get(addressesSetVar);
     }
 }
