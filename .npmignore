@@ -12,7 +12,7 @@ coverage/
 coverage*
 .solcover*
 
-
+.travis.yml
 .gitattributes
 .eslint*
 .solium*
