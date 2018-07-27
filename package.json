@@ -1,6 +1,6 @@
 {
   "name": "solidity-storage-lib",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides an access to a storage contract",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,11 @@
     "coveralls": "^3.0.1",
     "solidity-coverage": "^0.5.4",
     "standard-version": "^4.0.0"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
   },
   "repository": {
     "type": "git",

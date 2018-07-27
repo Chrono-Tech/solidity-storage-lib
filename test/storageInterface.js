@@ -1138,6 +1138,192 @@ contract('StorageInterface', accounts => {
 			}
 		})
 
+		it("should copy bytes32 set values from one storage to another", async () => {
+			const value = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+			const value2 = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00'
+			const value3 = '0xaaffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaa'
+			const value4 = '0xbbffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbb'
+
+			await storageCollectionsTester.addSet(value)
+			await storageCollectionsTester.addSet2(value)
+			assert.equal(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				1
+			)
+			assert.equal(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				(await storageCollectionsTester.countSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value)))
+
+			await storageCollectionsTester.copySet1ToSet2()
+			assert.isTrue((await storageCollectionsTester.includesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value)))
+
+			await storageCollectionsTester.addSet(value2)
+			assert.isTrue((await storageCollectionsTester.includesSet(value2)))
+			assert.isFalse((await storageCollectionsTester.includesSet2(value2)))
+			assert.isAbove(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				(await storageCollectionsTester.countSet2()).toNumber()
+			)
+
+			await storageCollectionsTester.copySet1ToSet2()
+			assert.equal(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				2
+			)
+			assert.equal(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				(await storageCollectionsTester.countSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value2)))
+
+			await storageCollectionsTester.addSet(value3)
+			await storageCollectionsTester.addSet2(value4)
+			await storageCollectionsTester.copySet1ToSet2()
+			assert.equal(
+				(await storageCollectionsTester.countSet()).toNumber(),
+				(await storageCollectionsTester.countSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesSet(value3)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value2)))
+			assert.isTrue((await storageCollectionsTester.includesSet2(value3)))
+			assert.isFalse((await storageCollectionsTester.includesSet2(value4)))
+		})
+
+		it("should copy addresses set values from one storage to another", async () => {
+			const value = '0xffffffffffffffffffffffffffffffffffffffff'
+			const value2 = '0xffffffffffffffffffffffffffffffffffffff00'
+			const value3 = '0xaaffffffffffffffffffffffffffffffffffffaa'
+			const value4 = '0xaaffffffffffffffffffffffffffffffffffffbb'
+
+			await storageCollectionsTester.addAddressesSet(value)
+			await storageCollectionsTester.addAddressesSet2(value)
+			assert.equal(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				1
+			)
+			assert.equal(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				(await storageCollectionsTester.countAddressesSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value)))
+
+			await storageCollectionsTester.copyAddressesSet1ToAddressesSet2()
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value)))
+
+			await storageCollectionsTester.addAddressesSet(value2)
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value2)))
+			assert.isFalse((await storageCollectionsTester.includesAddressesSet2(value2)))
+			assert.isAbove(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				(await storageCollectionsTester.countAddressesSet2()).toNumber()
+			)
+
+			await storageCollectionsTester.copyAddressesSet1ToAddressesSet2()
+			assert.equal(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				2
+			)
+			assert.equal(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				(await storageCollectionsTester.countAddressesSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value2)))
+
+			await storageCollectionsTester.addAddressesSet(value3)
+			await storageCollectionsTester.addAddressesSet2(value4)
+			await storageCollectionsTester.copyAddressesSet1ToAddressesSet2()
+			assert.equal(
+				(await storageCollectionsTester.countAddressesSet()).toNumber(),
+				(await storageCollectionsTester.countAddressesSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet(value3)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value2)))
+			assert.isTrue((await storageCollectionsTester.includesAddressesSet2(value3)))
+			assert.isFalse((await storageCollectionsTester.includesAddressesSet2(value4)))
+		})
+
+		it("should copy counter set values from one storage to another", async () => {
+			const value = web3.toBigNumber("1")
+			const value2 = web3.toBigNumber("2")
+			const value3 = web3.toBigNumber("3")
+			const value4 = web3.toBigNumber("4")
+
+			await storageCollectionsTester.addCounterSet()
+			await storageCollectionsTester.addCounterSet2()
+			assert.equal(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				1
+			)
+			assert.equal(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				(await storageCollectionsTester.countCounterSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value)))
+
+			await storageCollectionsTester.copyCounterSet1ToCounterSet2()
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value)))
+
+			await storageCollectionsTester.addCounterSet()
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value2)))
+			assert.isFalse((await storageCollectionsTester.includesCounterSet2(value2)))
+			assert.isAbove(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				(await storageCollectionsTester.countCounterSet2()).toNumber()
+			)
+
+			await storageCollectionsTester.copyCounterSet1ToCounterSet2()
+			assert.equal(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				2
+			)
+			assert.equal(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				(await storageCollectionsTester.countCounterSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value2)))
+
+			await storageCollectionsTester.addCounterSet()
+			await storageCollectionsTester.addCounterSet2()
+			await storageCollectionsTester.addCounterSet2()
+			await storageCollectionsTester.removeCounterSet2(value3)
+			
+			await storageCollectionsTester.copyCounterSet1ToCounterSet2()
+			assert.equal(
+				(await storageCollectionsTester.countCounterSet()).toNumber(),
+				(await storageCollectionsTester.countCounterSet2()).toNumber()
+			)
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value2)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet(value3)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value2)))
+			assert.isTrue((await storageCollectionsTester.includesCounterSet2(value3)))
+			assert.isFalse((await storageCollectionsTester.includesCounterSet2(value4)))
+		})
+
 		it('should not allow repeated variables initialization', async () => {
 			await asserts.throws(storageCollectionsTester.reinitCollections())
 		})
