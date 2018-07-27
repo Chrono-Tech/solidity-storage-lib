@@ -1138,7 +1138,7 @@ contract('StorageInterface', accounts => {
 			}
 		})
 
-		it.only("should copy bytes32 set values from one storage to another", async () => {
+		it("should copy bytes32 set values from one storage to another", async () => {
 			const value = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 			const value2 = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00'
 			const value3 = '0xaaffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffaa'
@@ -1199,7 +1199,7 @@ contract('StorageInterface', accounts => {
 			assert.isFalse((await storageCollectionsTester.includesSet2(value4)))
 		})
 
-		it.only("should copy addresses set values from one storage to another", async () => {
+		it("should copy addresses set values from one storage to another", async () => {
 			const value = '0xffffffffffffffffffffffffffffffffffffffff'
 			const value2 = '0xffffffffffffffffffffffffffffffffffffff00'
 			const value3 = '0xaaffffffffffffffffffffffffffffffffffffaa'
@@ -1260,7 +1260,7 @@ contract('StorageInterface', accounts => {
 			assert.isFalse((await storageCollectionsTester.includesAddressesSet2(value4)))
 		})
 
-		it.only("should copy counter set values from one storage to another", async () => {
+		it("should copy counter set values from one storage to another", async () => {
 			const value = web3.toBigNumber("1")
 			const value2 = web3.toBigNumber("2")
 			const value3 = web3.toBigNumber("3")
