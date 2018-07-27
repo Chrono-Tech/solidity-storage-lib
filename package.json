@@ -31,6 +31,11 @@
     "solidity-coverage": "^0.5.4",
     "standard-version": "^4.0.0"
   },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ChronoBank/solidity-storage-lib.git"
