@@ -889,6 +889,38 @@ library StorageInterface {
         remove(self, item.innerMapping, _key, bytes32(_value));
     }
 
+    /** 'copy` operation */
+
+    function copy(Config storage self, Set storage source, Set storage dest) internal {
+        uint _destCount = count(self, dest);
+        bytes32[] memory _toRemoveFromDest = new bytes32[](_destCount);
+        uint _idx;
+        uint _pointer = 0;
+        for (_idx = 0; _idx < _destCount; ++_idx) {
+            bytes32 _destValue = get(self, dest, _idx);
+            if (!includes(self, source, _destValue)) {
+                _toRemoveFromDest[_pointer++] = _destValue;
+            }
+        }
+
+        uint _sourceCount = count(self, source);
+        for (_idx = 0; _idx < _sourceCount; ++_idx) {
+            add(self, dest, get(self, source, _idx));
+        }
+
+        for (_idx = 0; _idx < _pointer; ++_idx) {
+            remove(self, dest, _toRemoveFromDest[_idx]);
+        }
+    }
+
+    function copy(Config storage self, AddressesSet storage source, AddressesSet storage dest) internal {
+        copy(self, source.innerSet, dest.innerSet);
+    }
+
+    function copy(Config storage self, CounterSet storage source, CounterSet storage dest) internal {
+        copy(self, source.innerSet, dest.innerSet);
+    }
+
     /** `get` operation */
 
     function get(Config storage self, UInt storage item) internal view returns (uint) {

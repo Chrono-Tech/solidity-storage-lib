@@ -18,6 +18,10 @@ contract StorageCollectionsTester is StorageAdapter {
     StorageInterface.OrderedUIntSet orderedUIntSetVar;
     StorageInterface.OrderedAddressesSet orderedAddressesSetVar;
 
+    StorageInterface.Set set2Var;
+    StorageInterface.AddressesSet addressesSet2Var;
+    StorageInterface.CounterSet counterSet2Var;
+
     StorageInterface.Bytes32SetMapping bytes32SetMappingVar;
     StorageInterface.AddressesSetMapping addressesSetMappingVar;
     StorageInterface.UIntSetMapping uIntSetMappingVar;
@@ -35,6 +39,10 @@ contract StorageCollectionsTester is StorageAdapter {
         orderedSetVar.init("osv");
         orderedUIntSetVar.init("ousv");
         orderedAddressesSetVar.init("oasv");
+
+        set2Var.init("set2Var");
+        addressesSet2Var.init("as2v");
+        counterSet2Var.init("cs2v");
 
         bytes32SetMappingVar.init("bsmv");
         addressesSetMappingVar.init("asmv");
@@ -80,6 +88,32 @@ contract StorageCollectionsTester is StorageAdapter {
         return store.get(setVar);
     }
 
+    /* set 2 */
+
+    function addSet2(bytes32 _value) external {
+        store.add(set2Var, _value);
+    }
+
+    function removeSet2(bytes32 _value) external {
+        store.remove(set2Var, _value);
+    }
+
+    function includesSet2(bytes32 _value) external view returns (bool) {
+        return store.includes(set2Var, _value);
+    }
+
+    function countSet2() public view returns (uint) {
+        return store.count(set2Var);
+    }
+
+    function getSet2() public view returns (bytes32[]) {
+        return store.get(set2Var);
+    }
+
+    function copySet1ToSet2() public {
+        store.copy(setVar, set2Var);
+    }
+
     /* Addresses Set */
 
     function addAddressesSet(address _value) external {
@@ -114,6 +148,32 @@ contract StorageCollectionsTester is StorageAdapter {
         return store.get(addressesSetVar);
     }
 
+    /* Addresses Set 2 */
+
+    function addAddressesSet2(address _value) external {
+        store.add(addressesSet2Var, _value);
+    }
+
+    function removeAddressesSet2(address _value) external {
+        store.remove(addressesSet2Var, _value);
+    }
+
+    function includesAddressesSet2(address _value) external view returns (bool) {
+        return store.includes(addressesSet2Var, _value);
+    }
+
+    function countAddressesSet2() public view returns (uint) {
+        return store.count(addressesSet2Var);
+    }
+
+    function getAddressesSet2() public view returns (address[]) {
+        return store.get(addressesSet2Var);
+    }
+
+    function copyAddressesSet1ToAddressesSet2() public {
+        store.copy(addressesSetVar, addressesSet2Var);
+    }
+
     /* Counter Set */
 
     function addCounterSet() external {
@@ -142,6 +202,32 @@ contract StorageCollectionsTester is StorageAdapter {
 
     function getCounterSet() public view returns (uint[]) {
         return store.get(counterSetVar);
+    }
+
+    /* Counter Set 2 */
+
+    function addCounterSet2() external {
+        store.add(counterSet2Var);
+    }
+
+    function removeCounterSet2(uint _value) external {
+        store.remove(counterSet2Var, _value);
+    }
+
+    function includesCounterSet2(uint _value) external view returns (bool) {
+        return store.includes(counterSet2Var, _value);
+    }
+
+    function countCounterSet2() public view returns (uint) {
+        return store.count(counterSet2Var);
+    }
+
+    function getCounterSet2() public view returns (uint[]) {
+        return store.get(counterSet2Var);
+    }
+
+    function copyCounterSet1ToCounterSet2() public {
+        store.copy(counterSetVar, counterSet2Var);
     }
 
     /* Ordered Set */
